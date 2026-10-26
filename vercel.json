@@ -1,4 +1,31 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "//": "Browsers must trust the declared type, not guess from content.",
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "//": "Nobody frames this app inside their own page and passes it off as theirs, or overlays it to harvest clicks.",
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "//": "A shared link carries coordinates. Other sites get the origin, never the query string.",
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "//": "Only the two devices the app genuinely asks for, and only for itself.",
+          "key": "Permissions-Policy",
+          "value": "geolocation=(self), camera=(self), microphone=(), payment=(), usb=()"
+        }
+      ]
+    }
+  ]
 }
